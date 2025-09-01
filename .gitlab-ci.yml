@@ -1,10 +1,9 @@
-stages: [test]
+stages:
+  - test
 
 cypress_tests:
   stage: test
   image: cypress/base:22.19.0
   script:
     - npm ci
-    - node index.js &                
-    - npx -y wait-on tcp:3000        
-    - npx cypress run --headless     
+    - npm run test:api

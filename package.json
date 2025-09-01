@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "test": "cypress run"
+    "test:api": "node index.js & npx wait-on tcp:3000 && cypress run",
+    "test:api:open": "node index.js & npx wait-on tcp:3000 && cypress open"
   },
   "keywords": [],
   "author": "",
