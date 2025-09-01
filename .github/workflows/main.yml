@@ -1,0 +1,23 @@
+name: Cypress API Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: cypress/base:22.19.0
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create .env
+        run: echo "DB_CONNECT=mongodb+srv://${{ secrets.MONGODB_ACCESS }}${{ secrets.MONGODB_HOST }}?retryWrites=true&w=majority&appName=Cluster0" > .env
+
+      - name: Run Cypress API tests
+        run: npm run test:api
