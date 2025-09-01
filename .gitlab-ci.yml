@@ -6,4 +6,5 @@ cypress_tests:
   image: cypress/base:22.19.0
   script:
     - npm ci
+    - echo "DB_CONNECT=mongodb+srv://$MONGODB_ACCESS$MONGODB_HOST?retryWrites=true&w=majority&appName=Cluster0" > .env
     - npm run test:api
