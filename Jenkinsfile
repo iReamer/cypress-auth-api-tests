@@ -5,7 +5,7 @@ pipeline {
             bat 'npm ci'
         }
     }
-    stage('Start API & Run Cypress'){
+    stages('Start API & Run Cypress'){
         steps{
             withCredentials([
                 string(credentialsId: 'MONGODB_ACCESS', variable: 'MONGODB_ACCESS'),
