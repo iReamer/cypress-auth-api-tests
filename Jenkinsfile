@@ -1,19 +1,21 @@
 pipeline {
-    agent any
-    stages ('Install Dependencies'){
-        steps {
-            bat 'npm ci'
-        }
+  agent any
+  stages {
+    stage('Install Dependencies') {
+      steps {
+        bat 'npm ci'
+      }
     }
-    stages('Start API & Run Cypress'){
-        steps{
-            withCredentials([
-                string(credentialsId: 'MONGODB_ACCESS', variable: 'MONGODB_ACCESS'),
-                string(credentialsId: 'MONGODB_HOST',   variable: 'MONGODB_HOST')
-        ])
-                writeFile file: '.env'
-                        text: "DB_CONNECT=mongodb+srv://${MONGODB_ACCESS}${MONGODB_HOST}?retryWrites=true&w=majority&appName=Cluster0\r\n"
-                bat 'npm run test:api'
+    stage('Start API & Run Cypress') {
+      steps {
+        withCredentials([
+          string(credentialsId: 'MONGODB_ACCESS', variable: 'MONGODB_ACCESS'),
+          string(credentialsId: 'MONGODB_HOST',   variable: 'MONGODB_HOST')
+        ]) {
+          writeFile file: '.env', text: "DB_CONNECT=mongodb+srv://${MONGODB_ACCESS}${MONGODB_HOST}?retryWrites=true&w=majority&appName=Cluster0\r\n"
+          bat 'npm run test:api'
         }
+      }
     }
+  }
 }
