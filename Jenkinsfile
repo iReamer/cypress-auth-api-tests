@@ -13,7 +13,7 @@ pipeline {
           string(credentialsId: 'MONGODB_HOST',   variable: 'MONGODB_HOST')
         ]) {
           writeFile file: '.env', text: "DB_CONNECT=mongodb+srv://${MONGODB_ACCESS}${MONGODB_HOST}?retryWrites=true&w=majority&appName=Cluster0\r\n"
-          bat 'npm run test:api'
+          bat 'npm run test:api:win'
         }
       }
     }
