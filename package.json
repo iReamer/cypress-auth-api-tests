@@ -8,8 +8,8 @@
     "start": "node index.js",
     "test:api": "node index.js & npx wait-on tcp:3000 && cypress run",
     "test:api:open": "node index.js & npx wait-on tcp:3000 && cypress open",
-    "test:api:win": "start /b node index.js && npx wait-on tcp:3000 && npx cypress run"
-
+    "test:api:win": "start /b node index.js && npx wait-on tcp:3000 && npx cypress run",
+    "jmeter:test": "jmeter -n -t tests/mytest.jmx -Jthreads=50 -Jduration=120 -l results.jtl"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +20,9 @@
     "bcryptjs": "^3.0.2",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "mongoose": "^8.18.0"
+    "jmeter": "^0.0.1",
+    "mongoose": "^8.18.0",
+    "nanoid": "^5.1.5"
   },
   "devDependencies": {
     "cypress": "^15.0.0",
