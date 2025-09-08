@@ -20,7 +20,7 @@ JMeter_perf:
     - npm ci
     - echo "DB_CONNECT=mongodb+srv://$MONGODB_ACCESS$MONGODB_HOST?retryWrites=true&w=majority&appName=Cluster0" > .env
     - npm start &
-    - jmeter -n -t tests/mytest.jmx -l out.jtl -e -o out -JbaseUrl=http://localhost:3000
+    - jmeter -n -t tests/mytest.jmx -l out.jtl -e -o out -Jduration=120
   artifacts:
     when: always
     paths:
