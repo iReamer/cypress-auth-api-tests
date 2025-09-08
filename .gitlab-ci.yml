@@ -16,6 +16,7 @@ JMeter_perf:
     name: alpine/jmeter:latest
     entrypoint: [""] 
   script:
+    - apk add --no-cache nodejs npm
     - npm ci
     - echo "DB_CONNECT=mongodb+srv://$MONGODB_ACCESS$MONGODB_HOST?retryWrites=true&w=majority&appName=Cluster0" > .env
     - npm start &
