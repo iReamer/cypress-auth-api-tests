@@ -12,11 +12,15 @@ cypress_tests:
 
 JMeter_perf:
   stage: perf
-  image: alpine/jmeter:latest
+  image:
+    name: alpine/jmeter:latest
+    entrypoint: [""] 
   script:
+    - apk add --no-cache nodejs npm
     - npm ci
     - echo "DB_CONNECT=mongodb+srv://$MONGODB_ACCESS$MONGODB_HOST?retryWrites=true&w=majority&appName=Cluster0" > .env
-    - jmeter -n -t tests/mytest.jmx -l out.jtl -e -o out -JbaseUrl=http://localhost:3000
+    - npm start &
+    - jmeter -n -t tests/mytest.jmx -l out.jtl -e -o out -Jduration=120
   artifacts:
     when: always
     paths:
