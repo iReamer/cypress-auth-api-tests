@@ -23,12 +23,14 @@ jobs:
         run: npm run test:api
         
   sast_scan:
-    name: Run Semgrep Scan
+    name: Run Semgrep Full Scan
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-      - name: Run Semgrep
+
+      - name: Run Semgrep Full
         uses: returntocorp/semgrep-action@v1
         with:
           config: p/owasp-top-ten
+          auditOn: push
