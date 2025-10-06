@@ -21,3 +21,27 @@ jobs:
 
       - name: Run Cypress API tests
         run: npm run test:api
+        
+  sast_scan:
+    name: Run Bandit Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Bandit
+      run: pip install bandit
+
+    - name: Run Bandit Scan
+      run: bandit -ll -ii -o bandit-report.json -f json -r .
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4.6.2
+      if: always()
+      with:
+        name: bandit-findings
+        path: bandit-report.json
